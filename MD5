@@ -1,0 +1,12 @@
+2caa79d54a4557d1117ff08a19bba8e0 *DESCRIPTION
+7e4f86f9ef96e3c5a9d204dbc3aa80b1 *NAMESPACE
+5fa0c4e18c1f87c47345e782e458432f *R/NY_subset.R
+1aadf690fefdad82044f8bc10d2557a4 *R/NYcity_subset.R
+f53317f4ca1aaddb38f1634c9a074cf8 *R/krige.posterior.R
+c064428acd0cee8dbce14b77c17a5eb6 *R/metropolis.krige.R
+e4a4af48e7a4dfb2d3b022ff13d98040 *data/NY_subset.rda
+9a022c1079f40f92a581b3b07e4ee64e *data/NYcity_subset.rda
+ea5920776fa9b9fe0312c95fc372ee6f *man/NY_subset.Rd
+aeadc424ed02f8826749058bb7c3cbab *man/NYcity_subset.Rd
+8c0077f5a9c71e1ed000a084669512c6 *man/krige.posterior.Rd
+1b85f66f3b8c46d9d055261594bc1439 *man/metropolis.krige.Rd
