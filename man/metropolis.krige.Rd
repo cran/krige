@@ -6,7 +6,9 @@
        This function performs Metropolis-Hastings sampling for a linear model specified over point-referenced geospatial data. It returns MCMC iterations, with which results of the geospatial linear model can be summarized.       
      }
      \usage{
-metropolis.krige(y,X,east,north,mcmc.samples=100)
+metropolis.krige(y,X,east,north,mcmc.samples=100,
+     tau2.shape=5000,tau2.rate=10,phi.shape=5,phi.rate=2000,
+     sigma2.shape=1600,sigma2.rate=10,a.tune=10000)
      }
      \arguments{
             \item{y}{The dependent variable that is used in the kriging model.}
@@ -14,7 +16,13 @@ metropolis.krige(y,X,east,north,mcmc.samples=100)
               \item{east}{Vector of eastings for all observations.}
                \item{north}{Vector of northings for all observations.}
                \item{mcmc.samples}{Number of MCMC iterations.}
-          
+               \item{tau2.shape}{Shape parameter for Gamma distribution that generates candidate values for the nugget term. Defaults to 5000.}
+               \item{tau2.rate}{Rate parameter for Gamma distribution that generates candidate values for the nugget term. Defaults to 10.}
+               \item{phi.shape}{Shape parameter for Gamma distribution that generates candidate values for the decay term. Defaults to 5.}
+               \item{phi.rate}{Rate parameter for Gamma distribution that generates candidate values for the decay term. Defaults to 2000.}
+               \item{sigma2.shape}{Shape parameter for Gamma distribution that generates candidate values for the partial sill term. Defaults to 1600.}
+               \item{sigma2.rate}{Rate parameter for Gamma distribution that generates candidate values for the partial sill term. Defaults to 10.}
+               \item{a.tune}{Tuning parameter for the acceptance ratio of the Metropolis algorithm. Defaults to 10000.}
      }
      \details{
       Analysts should use this function if they want to estimate a linear regression model in which each observation can be located at points in geographic space. That is, each observation is observed for a set of coordinates in eastings & northings or longitude & latitude. 
@@ -24,7 +32,7 @@ metropolis.krige(y,X,east,north,mcmc.samples=100)
       The returned value is a matrix of sampled values from the posterior distribution. Rows represent the iteration number, and ideally the user will discard the first several rows as burn-in. Columns represent the parameter, so summarizing the matrix by column offers summaries of the model's results.
      }
      \value{
-     Returns an object of class "matrix" that includes all iterations of the Metropolis-Hastings sampler. Each column of the matrix represents a different parameter--starting with \code{tau2}, \code{phi}, and \code{sigma2} before listing regression coeffifients. Each row represents another iteration of the MCMC sampler. Summarizing the matrix by column offers summaries of the marginal posterior distribution by parameter.
+     Returns an object of class "matrix" that includes all iterations of the Metropolis-Hastings sampler. Each column of the matrix represents a different parameter--starting with \code{tau2}, \code{phi}, and \code{sigma2} before listing regression coefficients. Each row represents another iteration of the MCMC sampler. Summarizing the matrix by column offers summaries of the marginal posterior distribution by parameter.
      }
      
      \references{

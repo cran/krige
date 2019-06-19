@@ -1,4 +1,3 @@
-#NEED TO HAVE THIS FUNCTION DEFINED
 # CREATING THE LOG-POSTERIOR OBJECTIVE FUNCTION
 krige.posterior <- function(tau2,phi,sigma2,beta,y,X,east,north){ 
   distance <- as.matrix(dist(cbind(east,north), method = "euclidean", diag = TRUE, upper = TRUE) )
@@ -12,7 +11,6 @@ krige.posterior <- function(tau2,phi,sigma2,beta,y,X,east,north){
   log.mu.prior <- sum(log(dmvnorm(beta, mean=rep(0,length(beta)), sigma = diag(length(beta))*10)))
   logpost <- loglik-((2*(sigma2^2)+1)/sigma2)-((2*(tau2^2)+1)/tau2)+log.mu.prior
   # PRIOR LINE: Adds Inverse Gamma(1,1) priors for tau2 and sigma2. log.mu.prior captures the priors on the regrssion coefficients.
-  # PRIOR LINE: Note that we are using a Uniform(0.01,0.99) prior on phi. PRIOR ON PHI. We left that out here as a proportionality 
-  # issue. If you don't use the probit transform, then the space of sampling has to be restricted.
+  # PRIOR LINE: Note that we are using a flat prior on phi. PRIOR ON PHI.
   return(logpost)
 }
