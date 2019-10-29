@@ -19,7 +19,7 @@ metropolis.krige <- function(y,X,east,north,mcmc.samples=100,tau2.shape=5000,tau
     sigma2 <- rgamma(1,shape=sigma2.shape,rate=sigma2.rate)
     beta <- mvrnorm(n = 1, mu=mcmc.mat[i,4:ncol(mcmc.mat)], s2*diag(n.vars))
     candidate <- krige.posterior(tau2,phi,sigma2,beta,y,X,east,north)
-    a.ratio <- (exp(candidate/a.tune)/exp(current/a.tune))
+    a.ratio <- (exp(candidate/a.tune)/exp(current/a.tune))^a.tune
     if (is.na(a.ratio) == TRUE) { print(paste("is.na:",a.ratio)); a.ratio <- 0 }
     if (a.ratio > runif(1)) {
       accepted <- accepted + 1
