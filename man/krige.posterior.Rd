@@ -6,7 +6,8 @@
        This function finds the posterior density of a geospatial linear regression model given a point-referenced geospatial dataset and a set of parameter values. The function is useful for finding the optimum of or for sampling from the posterior distribution.
      }
      \usage{
-krige.posterior(tau2,phi,sigma2,beta,y,X,east,north)
+krige.posterior(tau2,phi,sigma2,beta,y,X,east,north,
+  p.spatial.share=0.5,p.range.share=0.5,p.beta.var=10,tot.var=var(y))
      }
      \arguments{
         \item{tau2}{Value of the nugget, or non-spatial error variance.}
@@ -17,10 +18,14 @@ krige.posterior(tau2,phi,sigma2,beta,y,X,east,north)
              \item{X}{The matrix of independent variables used in the kriging model.}
               \item{east}{Vector of eastings for all observations.}
                \item{north}{Vector of northings for all observations.}
+		\item{p.spatial.share}{Prior for proportion of unexplained variance that is spatial in nature. Must be greater than 0 and less than 1. Defaults to an even split.}
+               \item{p.range.share}{Prior for the range term, as a proportion of the maximum distance in the data. Defaults to half the maximum distance.}
+               \item{p.beta.var}{Prior for the variance on zero-meaned normal priors on the regression coefficients. Defaults to 10.}
+               \item{tot.var}{Combined variance between the nugget and partial sill. Defaults to the variance of y.}
           
      }
      \details{
-      This function finds the posterior densisty for a kriging model. The function utilizes information provided about the parameters \code{tau2}, \code{phi}, \code{sigma2}, and \code{beta}. It also utilizes the observed data \code{y}, \code{X}, \code{east}, and \code{north}. Given a set of parameter values as well as the observed data, the function returns the posterior density for the specified model.
+      This function finds the posterior density for a kriging model. The function utilizes information provided about the parameters \code{tau2}, \code{phi}, \code{sigma2}, and \code{beta}. It also utilizes the observed data \code{y}, \code{X}, \code{east}, and \code{north}. Given a set of parameter values as well as the observed data, the function returns the posterior density for the specified model.
      }
      \value{
      Returns a single number that is the posterior density of the function, which is stored in object of class "matrix."

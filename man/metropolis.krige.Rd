@@ -7,8 +7,7 @@
      }
      \usage{
 metropolis.krige(y,X,east,north,mcmc.samples=100,
-     tau2.shape=5000,tau2.rate=10,phi.shape=5,phi.rate=2000,
-     sigma2.shape=1600,sigma2.rate=10,a.tune=10000)
+     spatial.share=0.5,range.share=0.5,beta.var=10,a.tune=10000)
      }
      \arguments{
             \item{y}{The dependent variable that is used in the kriging model.}
@@ -16,12 +15,9 @@ metropolis.krige(y,X,east,north,mcmc.samples=100,
               \item{east}{Vector of eastings for all observations.}
                \item{north}{Vector of northings for all observations.}
                \item{mcmc.samples}{Number of MCMC iterations.}
-               \item{tau2.shape}{Shape parameter for Gamma distribution that generates candidate values for the nugget term. Defaults to 5000.}
-               \item{tau2.rate}{Rate parameter for Gamma distribution that generates candidate values for the nugget term. Defaults to 10.}
-               \item{phi.shape}{Shape parameter for Gamma distribution that generates candidate values for the decay term. Defaults to 5.}
-               \item{phi.rate}{Rate parameter for Gamma distribution that generates candidate values for the decay term. Defaults to 2000.}
-               \item{sigma2.shape}{Shape parameter for Gamma distribution that generates candidate values for the partial sill term. Defaults to 1600.}
-               \item{sigma2.rate}{Rate parameter for Gamma distribution that generates candidate values for the partial sill term. Defaults to 10.}
+               \item{spatial.share}{Prior for proportion of unexplained variance that is spatial in nature. Must be greater than 0 and less than 1. Defaults to an even split.}
+               \item{range.share}{Prior for the range term, as a proportion of the maximum distance in the data. Defaults to half the maximum distance.}
+               \item{beta.var}{Prior for the variance on zero-meaned normal priors on the regression coefficients. Defaults to 10.}
                \item{a.tune}{Tuning parameter for the acceptance ratio of the Metropolis algorithm. Defaults to 10000.}
      }
      \details{
@@ -71,7 +67,7 @@ M<-5
 
 # Trial Run, Linear Model of Ideology with Geospatial Errors Using Metropolis-Hastings:
 test.mat <- metropolis.krige(y=ideo,X=psrm.data,east=ny$eastings,north=ny$northings,
-     mcmc.samples=M) 
+     mcmc.samples=M,spatial.share=.25,range.share=.9) 
 
 # Summarize Results
 summary(test.mat)
@@ -85,7 +81,7 @@ M<-100
 # Estimate Linear Model of Ideology with Geospatial Errors Using Metropolis-Hastings
 # Again, even 100 iterations is short:
 out.mat <- metropolis.krige(y=ideo,X=psrm.data,east=ny$eastings,north=ny$northings,
-     mcmc.samples=M) 
+     mcmc.samples=M,spatial.share=.25,range.share=.9) 
 
 # Discard first 10\% of Iterations as Burn-In (User Discretion Advised).
 out.mat <- out.mat[(.1*M+1):M,]
