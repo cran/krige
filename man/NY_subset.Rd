@@ -12,7 +12,7 @@ data(NY_subset)
      }
 
      \format{
-     	       The NY_subset dataset has 1108 observations and 26 variables.
+     	       The \code{NY_subset} dataset has 1108 observations and 26 variables.
 
      	\describe{
       \item{\code{state}}{The state abbreviation of the respondent's residence.}
@@ -50,12 +50,67 @@ data(NY_subset)
 	    }
      }
 \examples{
-# Descriptive Statistics
-summary(NY_subset)
+#Data
+ny <- NY_subset
 
-# Simple Linear Model of Ideology as a Function of Race and Sex
-simple.mod <- lm(ideology~as.factor(race)+female, data=NY_subset)
-summary(simple.mod)
+#data cleaning
+ny$cathOrth<-ny$catholic+ny$orthodox
+ny$consRelig<-ny$mormon+ny$evangelical
+ny$jewMus<-ny$jewish+ny$islam
+
+# Explanatory Variable Matrix
+psrm.data <-cbind(1, ny$age, ny$educ, I(ny$age*ny$educ), as.numeric(ny$race==2), 
+     as.numeric(ny$race==3), ny$female, I(as.numeric(ny$race==2)*ny$female), 
+     I(as.numeric(ny$race==3)*ny$female), ny$cathOrth, ny$consRelig, 
+     ny$jewMus, ny$mainline, ny$rural, ny$ownership, 
+     as.numeric(ny$empstat==2), as.numeric(ny$empstat==3),ny$inc14)
+dimnames(psrm.data)[[2]] <- c("Intercept", "Age", "Education", "Age.education", 
+     "African.American", "Nonwhite.nonblack","Female", 
+     "African.American.female", "Nonwhite.nonblack.female", 
+     "Catholic.Orthodox", "Evang.Mormon", "Jewish.Muslim", 
+     "Mainline","Ruralism", "Homeowner", "Unemployed",
+     "Not.in.workforce","Income")
+
+# Outcome Variable
+ideo <- matrix(ny$ideology,ncol=1)
+
+# Set Number of Iterations:
+# WARNING: 20 iterations is intensive on many machines.
+# This example was tuned on Amazon Web Services (EC2) over many hours
+# with 20,000 iterations--unsuitable in 2020 for most desktop machines.
+M<-20#000 #The comment character constrains this to 20 iterations.
+set.seed(1,kind="Mersenne-Twister")
+
+\dontrun{
+# Estimate the Model
+out.mat <- metropolis.krige(y=ideo,X=psrm.data,east=ny$eastings,north=ny$northings,
+    powered.exp=1,mcmc.samples=M,spatial.share=0.31,range.share=0.23,beta.var=10,
+    range.tol=0.01, b.tune=0.1, nugget.tune=20, psill.tune=5)	
+
+# Discard first 20\% of Iterations as Burn-In (User Discretion Advised).
+out.mat <- out.mat[(ceiling(0.2*M)+1):M,]
+
+# Summarize Results
+apply(out.mat,2,quantile,c(0.5,0.05,0.95))
+
+#Convergence Diagnostics: Geweke and Heidelberger-Welch
+#Note that the second (commented) version of Geweke is more typical
+#of a 20,000 iteration run.
+geweke(out.mat,early.prop=0.5)
+#geweke(out.mat)
+heidel.welch(out.mat)
+
+# Draw Semivariogram
+state.ols<-lm(ideo~psrm.data-1)
+graph.terms<-apply(out.mat[,1:3],2,quantile,0.5)
+raw.semivar<-semivariogram(x=ideo,east=ny$eastings, north=ny$northings)
+resid.semivar<-semivariogram(x=state.ols$residuals,east=ny$eastings, 
+     north=ny$northings,draw.plot=FALSE)
+points(resid.semivar,pch=3,col='blue')
+lines(exponential.semivariogram(nugget=graph.terms[1],decay=graph.terms[2],
+     partial.sill=graph.terms[3],
+     distance=as.numeric(names(resid.semivar)),power=1),col='red')
+}
 }
       \source{
      Ansolabehere, Stephen. 2011. "CCES, Common Content, 2008." Ver. 4. \cr

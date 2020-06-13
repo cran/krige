@@ -12,7 +12,7 @@ data(stateCombined)
      }
 
      \format{
-     	       The stateCombined dataset has 100 observations (2 each for 50 states) and 13 variables.
+     	       The \code{stateCombined} dataset has 100 observations (2 each for 50 states) and 13 variables.
 
      	\describe{
       \item{\code{STATEA}}{The FIPS code for the state.}
@@ -54,7 +54,7 @@ points(y=stateCombined$dwnom1[stateCombined$party==100],
      McCarty, Nolan M., Keith T. Poole and Howard Rosenthal. 1997. \emph{Income Redistribution and the Realignment of American Politics}. American Enterprise Institude Studies on Understanding Economic Inequality. Washington: AEI Press.
      \cr\cr
      Minnesota Population Center. 2011. \emph{National Historical Geographic Information System: Version 2.0.} Minneapolis, MN: University of Minnesota.\cr
-     \url{https://www.nhgis.org}
+     \samp{https://www.nhgis.org}
      }
      \references{
       James E. Monogan III & Jeff Gill. 2016. "Measuring State and District Ideology with Spatial Realignment." \emph{Political Science Research and Methods} 4(1):97-121.

@@ -12,7 +12,7 @@ data(congCombined)
      }
 
      \format{
-     	       The congCombined dataset has 442 observations and 12 variables. 434 out of 435 congressional districts are covered, with eight districts duplicated when a member was replaced mid-term.
+     	       The \code{congCombined} dataset has 442 observations and 12 variables. 434 out of 435 congressional districts are covered, with eight districts duplicated when a member was replaced mid-term.
 
      	\describe{
 \item{\code{stateCD}}{Unique identifier for each congressional district by state. The first two digits are \code{STATEA}, and the second two are \code{cd}.}
@@ -53,7 +53,7 @@ points(y=congCombined$dwnom1[congCombined$party==100],
      McCarty, Nolan M., Keith T. Poole and Howard Rosenthal. 1997. \emph{Income Redistribution and the Realignment of American Politics}. American Enterprise Institude Studies on Understanding Economic Inequality. Washington: AEI Press.
      \cr\cr
      Minnesota Population Center. 2011. \emph{National Historical Geographic Information System: Version 2.0.} Minneapolis, MN: University of Minnesota.\cr
-     \url{https://www.nhgis.org}
+     \samp{https://www.nhgis.org}
      }
      \references{
       James E. Monogan III & Jeff Gill. 2016. "Measuring State and District Ideology with Spatial Realignment." \emph{Political Science Research and Methods} 4(1):97-121.

@@ -1,16 +1,16 @@
 Package: krige
-Version: 0.4.1
-Date: 2020-03-10
+Version: 0.5.4
 Title: Geospatial Kriging with Metropolis Sampling
-Author: Jason S. Byers [aut, cre], Jeff Gill [aut], James E. Monogan III [aut], Jamie Carson [aut], Le Bao [aut]
+Date: 2020-06-12
+Author: Jason S. Byers [aut, cre], Le Bao [aut], James E. Monogan III [aut], Jamie Carson [aut], Jeff Gill [aut]
 Maintainer: Jason S. Byers <jaybyers55@gmail.com>
-Depends: R (>= 2.10), mvtnorm, MASS, invgamma
 Description: Estimates kriging models for geographical point-referenced data. Method is described in Monogan and Gill (2016) <doi:10.1017/psrm.2015.5>.
 License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.2)
+LinkingTo: Rcpp
+Depends: R (>= 3.5.0)
 LazyData: true
-URL: https://www.r-project.org
-Packaged: 2020-03-11 20:48:01 UTC; jasonbyers
-NeedsCompilation: no
+NeedsCompilation: yes
+Packaged: 2020-06-13 04:59:59 UTC; monogan
 Repository: CRAN
-Date/Publication: 2020-03-11 21:00:02 UTC
-RoxygenNote: 6.1.0
+Date/Publication: 2020-06-13 05:50:02 UTC

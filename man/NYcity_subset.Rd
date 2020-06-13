@@ -12,7 +12,7 @@ data(NYcity_subset)
      }
 
      \format{
-     	       The NYcity_subset dataset has 568 observations and 26 variables.
+     	       The \code{NYcity_subset} dataset has 568 observations and 26 variables.
 
      	\describe{
       \item{\code{state}}{The state abbreviation of the respondent's residence.}
@@ -50,12 +50,89 @@ data(NYcity_subset)
 	    }
      }
 \examples{
-# Descriptive Statistics
-summary(NYcity_subset)
+#Data
+ny <- NYcity_subset
 
-# Simple Linear Model of Ideology as a Function of Race and Sex
-simple.mod <- lm(ideology~as.factor(race)+female, data=NYcity_subset)
-summary(simple.mod)
+#data cleaning
+ny$cathOrth<-ny$catholic+ny$orthodox
+ny$consRelig<-ny$mormon+ny$evangelical
+ny$jewMus<-ny$jewish+ny$islam
+
+# Explanatory Variable Matrix
+psrm.data <-cbind(1, ny$age, ny$educ, I(ny$age*ny$educ), as.numeric(ny$race==2), 
+     as.numeric(ny$race==3), ny$female, I(as.numeric(ny$race==2)*ny$female), 
+     I(as.numeric(ny$race==3)*ny$female), ny$cathOrth, ny$consRelig, 
+     ny$jewMus, ny$mainline, ny$rural, ny$ownership, 
+     as.numeric(ny$empstat==2), as.numeric(ny$empstat==3),ny$inc14)
+dimnames(psrm.data)[[2]] <- c("Intercept", "Age", "Education", "Age.education", 
+     "African.American", "Nonwhite.nonblack","Female", 
+     "African.American.female", "Nonwhite.nonblack.female", 
+     "Catholic.Orthodox", "Evang.Mormon", "Jewish.Muslim", 
+     "Mainline","Ruralism", "Homeowner", "Unemployed",
+     "Not.in.workforce","Income")
+
+# Outcome Variable
+ideo <- matrix(ny$ideology,ncol=1)
+
+# Set Number of Iterations:
+# WARNING: This example was tuned on Amazon Web Services (EC2) over many hours
+# with 150,000 iterations--a strain in 2020 for most desktop machines.
+# A test with few iterations allows illustration.
+M<-5
+#M<-150000 
+set.seed(1,kind="Mersenne-Twister")
+
+# Estimate the Model
+out.mat <- metropolis.krige(y=ideo, X=psrm.data, east=ny$eastings, north=ny$northings,
+     powered.exp=2, mcmc.samples=M, spatial.share=0.1, range.share=0.3, beta.var=1000, 
+     range.tol=0.01, b.tune=0.1, nugget.tune=20, psill.tune=1) 
+
+# Discard first 20\% of Iterations as Burn-In (User Discretion Advised).
+out.mat <- out.mat[(ceiling(0.2*M)+1):M,]
+
+# Summarize Results
+apply(out.mat,2,quantile,c(0.5,0.05,0.95))
+
+# nonconvergence diagnostics
+# With few iterations there is insufficient variation for these tests.
+#geweke(out.mat)
+#heidel.welch(out.mat)
+
+# Draw Semivariogram
+city.ols<-lm(ideo~psrm.data-1)
+graph.terms<-apply(out.mat[,1:3],2,quantile,0.5)
+raw.semivar<-semivariogram(x=ideo,east=ny$eastings, north=ny$northings)
+resid.semivar<-semivariogram(x=city.ols$residuals,east=ny$eastings, 
+     north=ny$northings,draw.plot=FALSE)
+points(resid.semivar,pch=3,col='blue')
+lines(exponential.semivariogram(nugget=graph.terms[1],decay=graph.terms[2],
+     partial.sill=graph.terms[3],
+     distance=as.numeric(names(resid.semivar)),power=2),col='red')
+
+# Predictive data for three prominent New Yorkers:
+bill.deblasio<-c(1,58,5,58*5,0,0,0,0,0,0,0,0,0,0,1,0,0,14)
+melania.trump<-c(1,49,2,49*2,0,0,1,0,0,1,0,0,0,0,1,0,0,14)
+spike.lee<-c(1,63,5,63*5,1,0,0,0,0,0,0,0,1,0,1,0,0,14)
+new.yorkers<-rbind(bill.deblasio,melania.trump,spike.lee)
+gracie.mansion<-c(1829.802,580.4355)
+trump.tower<-c(1827.654,578.3515)
+hatch.house<-c(1828.273,578.7542)
+new.locations<-rbind(gracie.mansion,trump.tower,hatch.house)
+colnames(new.locations)<-c("eastings","northings")
+
+# Make predictions from median parameter values:
+median.pred<-krige.pred(pred.x=new.yorkers,
+    pred.east=new.locations[,"eastings"],pred.north=new.locations[,"northings"],
+    train.y=ideo,train.x=psrm.data,train.east=ny$eastings,
+    train.north=ny$northings,mcmc.iter=out.mat,powered.exp=2,credible=NULL)
+median.pred
+
+# Make predictions with 90\% credible intervals:
+cred.pred<-krige.pred(pred.x=new.yorkers,
+    pred.east=new.locations[,"eastings"],pred.north=new.locations[,"northings"],
+    train.y=ideo,train.x=psrm.data,train.east=ny$eastings,
+    train.north=ny$northings,mcmc.iter=out.mat,powered.exp=2,credible=0.9)
+cred.pred
 }
       \source{
      Ansolabehere, Stephen. 2011. "CCES, Common Content, 2008." Ver. 4. \cr

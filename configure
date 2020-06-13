@@ -1,0 +1,13 @@
+#! /bin/sh
+
+# Create Makevar file
+if [ ! -e "./src/Makevars" ]; then
+   touch ./src/Makevars
+fi
+
+# Write the Makevars seperately for Linux and Mac OS
+if [ `uname` = "Linux" ] ; then
+    echo 'PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)' >> ./src/Makevars
+elif [ `uname` = "Darwin" ] ; then
+    echo ' ' >> ./src/Makevars
+fi

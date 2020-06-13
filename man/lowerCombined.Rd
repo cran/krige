@@ -12,7 +12,7 @@ data(lowerCombined)
      }
 
      \format{
-     	       The lowerCombined dataset has 5446 observations and 10 variables.
+     	       The \code{lowerCombined} dataset has 5446 observations and 10 variables.
 
      	\describe{
      	\item{\code{st}}{Two-letter postal abbreviation for the state.}
@@ -49,7 +49,7 @@ points(y=lowerCombined$np_score[lowerCombined$party=="D"],
      \url{http://hdl.handle.net/1902.1/14003}
      \cr\cr
      Minnesota Population Center. 2011. \emph{National Historical Geographic Information System: Version 2.0.} Minneapolis, MN: University of Minnesota.\cr
-     \url{https://www.nhgis.org}
+     \samp{https://www.nhgis.org}
      \cr\cr
      Shor, Boris and Nolan M. McCarty. 2011. "The Ideological Mapping of American Legislatures." \emph{American Political Science Review} 105(3):530-551.
      }
