@@ -1,4 +1,4 @@
-47f1ab93a6d4bc233dac0234edb9de2b *DESCRIPTION
+6dd958cc6dd730c61b5f1f28bf701512 *DESCRIPTION
 7687062429e2a31a8b753773a6582c36 *NAMESPACE
 23eb31dbf8c2f09b7dc745211637de28 *R/RcppExports.R
 df69b3187ae11bc8a996763b4620a17d *R/exponential.semivariogram.R
@@ -8,7 +8,7 @@ f9b207b06d96be305715ca10ddc893c2 *R/krige.posterior.R
 3f7b4f94c02820062f7266bd2c16af97 *R/krige.pred.R
 0c582f144ce3bfc7b76370797f9cbc14 *R/metropolis.krige.R
 13132b0a5599fbcd5125135156207449 *R/semivariogram.R
-3de0b8cf04375ca6a66bacf6b36135c4 *configure
+22e2475362b177ae96079fdfd059c9eb *configure
 6e951977d94ab940b8d0eaa18c36873d *data/ContrivedData.rda
 e4a4af48e7a4dfb2d3b022ff13d98040 *data/NY_subset.rda
 9a022c1079f40f92a581b3b07e4ee64e *data/NYcity_subset.rda
