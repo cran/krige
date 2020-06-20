@@ -1,11 +1,11 @@
-6dd958cc6dd730c61b5f1f28bf701512 *DESCRIPTION
+34af5dc707cb60c057239ed8817a8e94 *DESCRIPTION
 7687062429e2a31a8b753773a6582c36 *NAMESPACE
 23eb31dbf8c2f09b7dc745211637de28 *R/RcppExports.R
 df69b3187ae11bc8a996763b4620a17d *R/exponential.semivariogram.R
 db960db85802448dfa414e1e7f109a60 *R/geweke.R
 b22e334fa9e9e7d33ceee0a83a9fe09a *R/heidel.welch.R
 f9b207b06d96be305715ca10ddc893c2 *R/krige.posterior.R
-3f7b4f94c02820062f7266bd2c16af97 *R/krige.pred.R
+7fca4665a46161c545987c63503d6d28 *R/krige.pred.R
 0c582f144ce3bfc7b76370797f9cbc14 *R/metropolis.krige.R
 13132b0a5599fbcd5125135156207449 *R/semivariogram.R
 22e2475362b177ae96079fdfd059c9eb *configure
@@ -22,10 +22,10 @@ c66574545a900a73cd42d8567ebe2ce4 *data/upperCombined.rda
 4f3aa3fefcdcbf876a1f0c7e562a53f7 *man/NYcity_subset.Rd
 9b33d7d924188ae82298ffa497dd1281 *man/WVwells.Rd
 895e75352e26f559d8ced4b0e1b4013a *man/congCombined.Rd
-90ab66ed349a4972f35136cace2faf7e *man/exponential.semivariogram.Rd
+6a9669e9231209068b59c3100bfbcade *man/exponential.semivariogram.Rd
 38d2f3999e7f9d729c364dfe1d42f7de *man/geweke.Rd
 5fbbc6ae2e9353fd73cef93d06272cb8 *man/heidel.welch.Rd
-228f2ef480f5335d3aa421a7842d0007 *man/krige.posterior.Rd
+7809e92b236d2df1e63d8f0bf403bd26 *man/krige.posterior.Rd
 33d5ab7d78c559081593d7efc176c59a *man/krige.pred.Rd
 ec02dff305c78c271419a01574ae43d0 *man/lowerCombined.Rd
 ceeff8c33cb1e147e9c14df309e3d804 *man/metropolis.krige.Rd

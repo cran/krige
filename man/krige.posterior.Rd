@@ -50,8 +50,8 @@ contrived.ols<-lm(y~x.1+x.2,data=ContrivedData);summary(contrived.ols)
 covariates<-cbind(1,ContrivedData$x.1,ContrivedData$x.2)
 
 # Find the posterior density for the Contrived Data if all parameters were 1:
-s.test <- krige.posterior(tau2=1, phi=1, sigma2=1, beta=rep(1,ncol(covariates)), y=ContrivedData$y,
-     X=covariates, east=ContrivedData$s.1, north=ContrivedData$s.2)
+s.test <- krige.posterior(tau2=1,phi=1,sigma2=1,beta=rep(1,ncol(covariates)), 
+     y=ContrivedData$y,X=covariates,east=ContrivedData$s.1,north=ContrivedData$s.2)
 
 # Print posterior density
 s.test
