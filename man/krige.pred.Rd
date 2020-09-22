@@ -59,7 +59,7 @@ M<-8
 
 #Run the Full Model
 contrived.run<-metropolis.krige(y=ContrivedData$y,X=covariates,range.tol=0.05,
-	east=ContrivedData$s.1,north=ContrivedData$s.2,mcmc.samples=M)
+     east=ContrivedData$s.1,north=ContrivedData$s.2,mcmc.samples=M)
 
 #Delete 20\% for Burn-In
 contrived.run<-contrived.run[(ceiling(0.2*M)+1):M,]

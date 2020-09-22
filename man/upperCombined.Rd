@@ -37,7 +37,7 @@ cor(upperCombined$np_score,upperCombined$krige.upper,use="complete.obs")
 
 # Plot Legislators' DW-NOMINATE Scores against Public Opinion Ideology
 plot(y=upperCombined$np_score,x=upperCombined$krige.upper,
-     xlab="District Ideology (Kriging)", ylab="Legislator Ideology (Shor & McCarty)", 
+     xlab="District Ideology (Kriging)", ylab="Legislator Ideology (Shor & McCarty)",
      main="State Legislatures: Upper Chambers", type="n")
 points(y=upperCombined$np_score[upperCombined$party=="R"],
      x=upperCombined$krige.upper[upperCombined$party=="R"],pch=".",col="red")
@@ -54,7 +54,7 @@ points(y=upperCombined$np_score[upperCombined$party=="D"],
      Shor, Boris and Nolan M. McCarty. 2011. "The Ideological Mapping of American Legislatures." \emph{American Political Science Review} 105(3):530-551.
      }
      \references{
-      James E. Monogan III & Jeff Gill. 2016. "Measuring State and District Ideology with Spatial Realignment." \emph{Political Science Research and Methods} 4(1):97-121.
+     Jeff Gill. 2020. Measuring Constituency Ideology Using Bayesian Universal Kriging. \emph{State Politics & Policy Quarterly}.
      }
 \keyword{datasets}
 
