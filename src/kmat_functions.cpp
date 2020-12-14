@@ -98,7 +98,7 @@ double dist(double east1, double north1, double east2, double north2) {
   return e_distance;
 }
 
-// [[Rcpp::export]]
+//[[Rcpp::export]]
 NumericMatrix k_distmat (NumericMatrix Mat)
   {
   int N = Mat.nrow();

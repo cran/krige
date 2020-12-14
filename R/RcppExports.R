@@ -2,22 +2,22 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 k_chol <- function(GlobalMat) {
-    .Call(`_krige_k_chol`, GlobalMat)
+    .Call('_krige_k_chol', PACKAGE = 'krige', GlobalMat)
 }
 
 k_chol2inv <- function(GlobalMat) {
-    .Call(`_krige_k_chol2inv`, GlobalMat)
+    .Call('_krige_k_chol2inv', PACKAGE = 'krige', GlobalMat)
 }
 
 k_eigenvalue <- function(GlobalMat) {
-    .Call(`_krige_k_eigenvalue`, GlobalMat)
+    .Call('_krige_k_eigenvalue', PACKAGE = 'krige', GlobalMat)
 }
 
 k_inv <- function(GlobalMat) {
-    .Call(`_krige_k_inv`, GlobalMat)
+    .Call('_krige_k_inv', PACKAGE = 'krige', GlobalMat)
 }
 
 k_distmat <- function(Mat) {
-    .Call(`_krige_k_distmat`, Mat)
+    .Call('_krige_k_distmat', PACKAGE = 'krige', Mat)
 }
 
