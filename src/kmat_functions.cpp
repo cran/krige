@@ -1,6 +1,10 @@
+#define USE_FC_LEN_T
 #include <Rcpp.h>
 #include <R_ext/Lapack.h>
 #include <R_ext/BLAS.h>
+#ifndef FCONE
+# define FCONE
+#endif
 
  using namespace Rcpp;
 
@@ -16,7 +20,7 @@ NumericMatrix k_chol(NumericMatrix GlobalMat)
   for (int i = 0; i < n; i++) 	/* zero the lower triangle */
 	for (int j = i+1; j < n; j++) Mat[j + n * i] = 0.;
 
-  F77_CALL(dpotrf)(&uplo, &n, Mat.begin(), &lda, &info);
+  F77_CALL(dpotrf)(&uplo, &n, Mat.begin(), &lda, &info FCONE);
   return Mat;
 }
 
@@ -30,7 +34,7 @@ NumericMatrix k_chol2inv(NumericMatrix GlobalMat)
   int lda = n;  //std::max(1, n)
   int info = 0;
 
-  F77_CALL(dpotri)(&uplo, &n, Mat.begin(), &lda, &info);
+  F77_CALL(dpotri)(&uplo, &n, Mat.begin(), &lda, &info FCONE);
 
   for (int i = 0; i < n; i++)
       for (int j = i+1; j < n; j++)
@@ -58,7 +62,7 @@ NumericVector k_eigenvalue(NumericMatrix GlobalMat)
 
   // Query for the optimal work array.
   F77_CALL(dsyevr)(&jobz, &range, &uplo, &n, Mat.begin(), &lda, &vl, &vu, &il, &iu, &abstol,
-           &m, lambda.begin(), eigvec.begin(), &ldz, isuppz.begin(), &work_tmp, &lwork, &iwork_tmp, &liwork, &info);
+           &m, lambda.begin(), eigvec.begin(), &ldz, isuppz.begin(), &work_tmp, &lwork, &iwork_tmp, &liwork, &info FCONE FCONE FCONE);
 
   lwork = work_tmp;
   liwork = iwork_tmp;
@@ -66,7 +70,7 @@ NumericVector k_eigenvalue(NumericMatrix GlobalMat)
   IntegerVector iwork(liwork);
 
   F77_CALL(dsyevr)(&jobz, &range, &uplo, &n, Mat.begin(), &lda, &vl, &vu, &il, &iu, &abstol,
-           &m, lambda.begin(), eigvec.begin(), &ldz, isuppz.begin(), work.begin(), &lwork, iwork.begin(), &liwork, &info);
+           &m, lambda.begin(), eigvec.begin(), &ldz, isuppz.begin(), work.begin(), &lwork, iwork.begin(), &liwork, &info FCONE FCONE FCONE);
 
   std::reverse(lambda.begin(), lambda.end()); // Reverse the order
   return lambda;
@@ -82,8 +86,8 @@ NumericMatrix k_inv(NumericMatrix GlobalMat)
   int lda = n;  //std::max(1, n)
   int info = 0;
 
-  F77_CALL(dpotrf)(&uplo, &n, Mat.begin(), &lda, &info);
-  F77_CALL(dpotri)(&uplo, &n, Mat.begin(), &lda, &info);
+  F77_CALL(dpotrf)(&uplo, &n, Mat.begin(), &lda, &info FCONE);
+  F77_CALL(dpotri)(&uplo, &n, Mat.begin(), &lda, &info FCONE);
 
   for (int i = 0; i < n; i++)
       for (int j = i+1; j < n; j++)

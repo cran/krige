@@ -1,4 +1,4 @@
-19e22eb23bcdbc324e3630b6148c65db *DESCRIPTION
+681bf8a83443ccf3da759dd3011582cf *DESCRIPTION
 236fa61374ec1b9dd23250dabcb9c081 *NAMESPACE
 cb44cd792f3b11d8444ccc70723f4628 *R/RcppExports.R
 df85f783b7e58901a18c98304b1d1a31 *R/data.R
@@ -48,4 +48,4 @@ d57ac24548c0ae715554f6f87c7c6851 *man/upperCombined.Rd
 38da7f42453b883ad2667aca08dd7b16 *src/Makevars
 2a6f9e9e044a78154d3cfda5936d6f48 *src/Makevars.win
 3a64f856c2f40a91b5daa141160cb341 *src/RcppExports.cpp
-eb2b66f4c27a7fc08299fc9d6fb357b2 *src/kmat_functions.cpp
+902a4b1e382f97113092e910a605d7a0 *src/kmat_functions.cpp
